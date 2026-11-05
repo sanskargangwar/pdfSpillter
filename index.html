@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FAFAFA" />
+  <meta name="robots" content="index, follow" />
+  <meta name="description" content="Split PDF files and rename each document automatically by text, invoice number or employee name. Free, private and browser-based." />
+  <meta name="keywords" content="split PDF and rename files, split PDF by text, split PDF by name, automatically split PDF, automatically rename PDF files, split payslips PDF, split invoices into separate PDFs, split PDF by invoice number, batch split PDF, PDF splitter no upload, private PDF splitter, free PDF splitter without registration, rename PDFs based on content, extract pages containing text" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="PDF Split & Rename – Free Private Browser Tool" />
+  <meta property="og:description" content="Split PDFs by text, keyword or page count and automatically rename every file. Your documents stay on your device." />
+  <meta property="og:url" content="https://bryanssss.github.io/pdf-split-and-rename/" />
+  <meta property="og:image" content="https://bryanssss.github.io/pdf-split-and-rename/assets/social-preview.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://bryanssss.github.io/pdf-split-and-rename/" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <title>Split PDF and Rename Files by Text – Free Private PDF Splitter</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- <link rel="stylesheet" href="styles.css" /> -->
+  <link rel="stylesheet" href="styles.css?v=5" />
+  <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js" defer></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "PDF Split & Rename",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Any modern web browser",
+    "url": "https://bryanssss.github.io/pdf-split-and-rename/",
+    "description": "A free browser-based tool to split PDF files by text, keyword or page count and automatically rename the resulting PDF documents.",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+    "featureList": [
+      "Split PDF by selected text region",
+      "Automatically detect invoice numbers and employee details",
+      "Split PDF when a keyword appears",
+      "Split every fixed number of pages",
+      "OCR fallback for scanned PDFs",
+      "Filename templates and duplicate warnings",
+      "Private browser-based processing"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#tool">Skip to the PDF tool</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./" aria-label="PDF Split and Rename home">
+        <span class="brand-icon" aria-hidden="true">↯</span>
+        <span>
+          <strong>PDF Splitter</strong>
+          <!-- <small>Free • Private • No installation</small> -->
+        </span>
+      </a>
+      <nav class="header-actions" aria-label="Project links">
+        <!-- <a class="button button-ghost" href="https://github.com/bryanssss/pdf-split-and-rename" target="_blank" rel="noopener">View source</a> -->
+        <!-- <a class="button button-donate" href="https://www.paypal.com/donate/?hosted_button_id=YE9H5NCNLWU38" target="_blank" rel="noopener">💛 Support this free tool</a> -->
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="main-title">
+      <div class="hero-copy">
+        <!-- <span class="eyebrow">FREE BROWSER-BASED PDF TOOL</span> -->
+        <h1 id="main-title">Split PDF files and rename them automatically</h1>
+        <!-- <p class="hero-lead">Split one large PDF into separate documents using a name, invoice number, employee ID, keyword or fixed page count. Review every filename and download everything in one ZIP.</p> -->
+        <p class="hero-lead">Split one large PDF into separate documents whenever a name, invoice number or ID changes. Review every filename and download everything in one ZIP.</p>
+        <!-- <div class="trust-row" aria-label="Tool benefits">
+          <span>🔒 Files stay on your device</span>
+          <span>🚫 No account or watermark</span>
+          <span>⚡ Runs in your browser</span>
+        </div> -->
+      </div>
+      <div class="hero-card" aria-label="Example transformation">
+        <div class="example-file">📄 100-payslips.pdf</div>
+        <div class="example-arrow">↓ detects employee name ↓</div>
+        <!-- <div class="example-results">
+          <span>John-Smith.pdf</span>
+          <span>Maria-Jones.pdf</span>
+          <span>David-Wilson.pdf</span>
+        </div> -->
+      </div>
+    </section>
+
+    <section id="tool" class="tool-shell" aria-labelledby="tool-heading">
+      <div class="tool-heading-row">
+        <div>
+          <span class="eyebrow">PDF SPLITTER</span>
+          <h2 id="tool-heading">Create your split files</h2>
+        </div>
+        <button id="resetButton" class="button button-ghost" type="button">Start over</button>
+      </div>
+
+      <div id="notice" class="notice notice-info" role="status">
+        <strong>Private by design:</strong> your PDF is processed locally in this browser. The app downloads its code libraries, and optional OCR may download a language model, but your document is not uploaded to us.
+      </div>
+
+      <section class="step-card" aria-labelledby="upload-title">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <!-- <h3 id="upload-title">Upload the large PDF</h3> -->
+          <h3 id="upload-title">Upload your invoice PDFs</h3>
+          <!-- <p>Choose the PDF that contains all the invoices, payslips, certificates, statements or other documents you want to separate.</p> -->
+          <!-- <p>Choose the PDF that contains all your invoices. It will be split automatically by invoice number.</p> -->
+          <p>Choose one or more PDFs that contain your invoices. Each one is split automatically by invoice number.</p>
+          <label id="dropzone" class="dropzone" for="pdfInput">
+            <!-- <input id="pdfInput" type="file" accept="application/pdf,.pdf" hidden /> -->
+            <input id="pdfInput" type="file" accept="application/pdf,.pdf" multiple hidden />
+            <span class="dropzone-icon">📄</span>
+            <!-- <strong>Drop a PDF here or click to choose</strong> -->
+            <strong>Drop one or more PDFs here or click to choose</strong>
+            <span>Recommended: under 200 MB for the best browser performance</span>
+          </label>
+          <div id="fileSummary" class="file-summary hidden"></div>
+          <!-- Progress panel moved here from the (now hidden) configure step so it stays visible while the PDF is analysed. -->
+          <div id="progressPanel" class="progress-panel hidden" aria-live="polite">
+            <div class="progress-heading"><span id="progressText">Analysing…</span><strong id="progressPercent">0%</strong></div>
+            <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step "Choose how the PDF should be split" disabled: splitting is always by text / ID changes (smart mode).
+      <section id="methodSection" class="step-card disabled-section" aria-labelledby="method-title">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3 id="method-title">Choose how the PDF should be split</h3>
+          <div class="method-grid" role="radiogroup" aria-label="Split method">
+            <label class="method-option selected">
+              <input type="radio" name="splitMode" value="smart" checked />
+              <span class="method-icon">🧠</span>
+              <strong>Text or ID changes</strong>
+              <small>Best for payslips, invoices, certificates and statements.</small>
+            </label>
+            <label class="method-option">
+              <input type="radio" name="splitMode" value="keyword" />
+              <span class="method-icon">🔎</span>
+              <strong>Keyword starts a file</strong>
+              <small>Start a new PDF whenever a word or pattern appears.</small>
+            </label>
+            <label class="method-option">
+              <input type="radio" name="splitMode" value="fixed" />
+              <span class="method-icon">📚</span>
+              <strong>Fixed page count</strong>
+              <small>Split every 1, 2, 3 or more pages.</small>
+            </label>
+            <label class="method-option">
+              <input type="radio" name="splitMode" value="single" />
+              <span class="method-icon">✂️</span>
+              <strong>One file per page</strong>
+              <small>Create one separate PDF for every page.</small>
+            </label>
+          </div>
+        </div>
+      </section>
+      -->
+
+      <!-- Configure step is hidden (class "hidden"), not removed: the PDF is analysed automatically after upload using the
+           defaults below (automatic detection, "Invoice number" preset, carry-forward on, OCR on, filename "{value}").
+           The elements must stay in the DOM because app.js reads them. Remove "hidden" to bring the settings back. -->
+      <section id="configureSection" class="step-card disabled-section hidden" aria-labelledby="configure-title">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <div class="section-title-row">
+            <div>
+              <h3 id="configure-title">Configure detection and filenames</h3>
+              <p id="configureHelp">Choose how the changing name or number should be found.</p>
+            </div>
+            <div class="template-actions">
+              <select id="savedTemplateSelect" aria-label="Saved templates">
+                <option value="">Saved templates…</option>
+              </select>
+              <button id="loadTemplateButton" class="button button-small button-ghost" type="button">Load</button>
+              <button id="saveTemplateButton" class="button button-small button-secondary" type="button">Save setup</button>
+            </div>
+          </div>
+
+          <div id="smartConfig" class="mode-config">
+            <div class="segmented-control" role="radiogroup" aria-label="Text detection method">
+              <!-- <label><input type="radio" name="smartMethod" value="region" checked /><span>Select text areas</span></label>
+              <label><input type="radio" name="smartMethod" value="automatic" /><span>Automatic detection</span></label> -->
+              <label><input type="radio" name="smartMethod" value="region" /><span>Select text areas</span></label>
+              <label><input type="radio" name="smartMethod" value="automatic" checked /><span>Automatic detection</span></label>
+            </div>
+
+            <div id="regionConfig">
+              <div class="viewer-layout">
+                <div class="viewer-column">
+                  <div class="viewer-toolbar">
+                    <button id="previousPageButton" class="icon-button" type="button" aria-label="Previous page">←</button>
+                    <label>Page <input id="pageNumberInput" type="number" min="1" value="1" /> of <span id="pageCountLabel">0</span></label>
+                    <button id="nextPageButton" class="icon-button" type="button" aria-label="Next page">→</button>
+                    <button id="suggestButton" class="button button-small button-ghost" type="button">Find likely IDs</button>
+                  </div>
+                  <p class="viewer-tip"><strong>Draw a box</strong> around the name, invoice number or ID. Add more boxes if you want several values in each filename.</p>
+                  <div id="pdfViewer" class="pdf-viewer" aria-label="PDF page preview">
+                    <canvas id="pdfCanvas"></canvas>
+                    <canvas id="selectionCanvas"></canvas>
+                    <div id="viewerEmpty" class="viewer-empty">Upload a PDF to preview its pages.</div>
+                  </div>
+                  <div id="selectionForm" class="selection-form hidden">
+                    <label>Field name
+                      <input id="regionNameInput" type="text" maxlength="40" placeholder="employeeName" />
+                    </label>
+                    <button id="addRegionButton" class="button button-primary" type="button">Add selected area</button>
+                    <button id="cancelRegionButton" class="button button-ghost" type="button">Cancel</button>
+                  </div>
+                  <div id="suggestions" class="suggestions hidden"></div>
+                </div>
+
+                <aside class="fields-panel">
+                  <div class="fields-panel-title">
+                    <h4>Selected fields</h4>
+                    <button id="clearRegionsButton" class="text-button" type="button">Clear</button>
+                  </div>
+                  <div id="regionsList" class="regions-list">
+                    <p class="empty-state">No areas selected yet.</p>
+                  </div>
+                  <label class="form-field">Field that starts a new document
+                    <select id="splitKeySelect">
+                      <option value="">Select an area first</option>
+                    </select>
+                  </label>
+                  <label class="checkbox-row">
+                    <input id="carryForwardCheckbox" type="checkbox" checked />
+                    <span><strong>Carry the last value forward</strong><small>Useful when the ID appears only on the first page of a multi-page document.</small></span>
+                  </label>
+                </aside>
+              </div>
+              <div class="thumbnail-section">
+                <div class="thumbnail-heading"><strong>All pages</strong><span>Click a page to inspect it</span></div>
+                <div id="thumbnailStrip" class="thumbnail-strip"></div>
+              </div>
+            </div>
+
+            <div id="automaticConfig" class="automatic-config hidden">
+              <div class="form-grid two-columns">
+                <label class="form-field">What should be detected?
+                  <select id="autoPresetSelect">
+                    <option value="invoice">Invoice number</option>
+                    <option value="employeeId">Employee or staff ID</option>
+                    <option value="employeeName">Employee or recipient name</option>
+                    <option value="account">Account or customer number</option>
+                    <option value="certificate">Certificate recipient</option>
+                    <option value="custom">Custom regular expression</option>
+                  </select>
+                </label>
+                <label class="form-field">Custom regular expression
+                  <input id="customRegexInput" type="text" placeholder="Invoice\s*#?\s*([A-Z0-9-]+)" disabled />
+                </label>
+              </div>
+              <div class="notice notice-muted">Automatic detection searches each page for common labels. For unusual layouts, selecting a text area is more accurate.</div>
+              <label class="checkbox-row compact">
+                <input id="autoCarryForwardCheckbox" type="checkbox" checked />
+                <span><strong>Keep grouping blank continuation pages with the previous detected document</strong></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Keyword / fixed page count / one-file-per-page configs disabled (only smart mode is used).
+          <div id="keywordConfig" class="mode-config hidden">
+            <div class="form-grid two-columns">
+              <label class="form-field">Keyword or pattern
+                <input id="keywordInput" type="text" placeholder="Invoice" />
+              </label>
+              <label class="form-field">Detection type
+                <select id="keywordTypeSelect">
+                  <option value="text">Normal text</option>
+                  <option value="regex">Regular expression</option>
+                </select>
+              </label>
+            </div>
+            <div class="inline-options">
+              <label><input id="caseSensitiveCheckbox" type="checkbox" /> Case sensitive</label>
+              <label><input id="firstMatchValueCheckbox" type="checkbox" checked /> Use the matched text in the filename</label>
+            </div>
+          </div>
+
+          <div id="fixedConfig" class="mode-config hidden">
+            <label class="form-field narrow">Pages in each output PDF
+              <input id="fixedPageCountInput" type="number" min="1" max="1000" value="1" />
+            </label>
+          </div>
+
+          <div id="singleConfig" class="mode-config hidden">
+            <div class="notice notice-muted">Every page will become its own PDF. You can still review and edit every filename before downloading.</div>
+          </div>
+          -->
+
+          <div class="settings-grid">
+            <div class="setting-card">
+              <label class="form-field">Filename template
+                <input id="filenameTemplateInput" type="text" value="{value}" />
+              </label>
+              <p id="placeholderHelp" class="field-help">Available: <code>{value}</code>, <code>{startPage}</code>, <code>{endPage}</code>, <code>{documentNumber}</code>, <code>{originalName}</code>, <code>{date}</code></p>
+            </div>
+            <div class="setting-card">
+              <label class="checkbox-row compact">
+                <!-- <input id="ocrCheckbox" type="checkbox" /> -->
+                <input id="ocrCheckbox" type="checkbox" checked />
+                <span><strong>Use OCR when no selectable text is found</strong><small>Helps with scanned PDFs. OCR is slower and downloads a language model.</small></span>
+              </label>
+              <label id="ocrLanguageField" class="form-field hidden">OCR language
+                <select id="ocrLanguageSelect">
+                  <option value="eng">English</option>
+                  <option value="spa">Spanish</option>
+                  <option value="fra">French</option>
+                  <option value="deu">German</option>
+                  <option value="ita">Italian</option>
+                  <option value="por">Portuguese</option>
+                  <option value="nld">Dutch</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <button id="analyseButton" class="button button-primary button-large" type="button" disabled>Analyse PDF and create split plan</button>
+          <!-- Original progress panel (moved into step 1):
+          <div id="progressPanel" class="progress-panel hidden" aria-live="polite">
+            <div class="progress-heading"><span id="progressText">Analysing…</span><strong id="progressPercent">0%</strong></div>
+            <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
+          </div>
+          -->
+        </div>
+      </section>
+
+      <section id="reviewSection" class="step-card disabled-section" aria-labelledby="review-title">
+        <!-- <div class="step-number">3</div> -->
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <div class="section-title-row">
+            <div>
+              <h3 id="review-title">Review the split plan and filenames</h3>
+              <p>Edit any filename before downloading. Duplicate and empty names are highlighted automatically.</p>
+            </div>
+            <div id="reviewStats" class="review-stats"></div>
+          </div>
+          <div id="reviewWarnings"></div>
+          <div id="duplicateInfo"></div>
+          <div class="table-wrapper">
+            <table class="review-table">
+              <thead><tr><th>#</th><th>Pages</th><th>Detected value</th><th>Output filename</th><th>Preview</th></tr></thead>
+              <tbody id="reviewTableBody"><tr><td colspan="5" class="empty-table">Analyse a PDF to see the split plan.</td></tr></tbody>
+            </table>
+          </div>
+          <div class="review-actions">
+            <button id="autoFixNamesButton" class="button button-secondary" type="button" disabled>Fix duplicate and empty names</button>
+            <button id="downloadZipButton" class="button button-primary button-large" type="button" disabled>Download all PDFs as ZIP</button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- <section class="content-section" aria-labelledby="how-it-works">
+      <span class="eyebrow">HOW IT WORKS</span>
+      <h2 id="how-it-works">A private PDF splitter that renames files from their content</h2>
+      <div class="content-grid three-columns">
+        <article><span>1</span><h3>Choose a split rule</h3><p>Select a repeating text area, automatically detect an invoice number or employee name, use a keyword, or split by page count.</p></article>
+        <article><span>2</span><h3>Check the split plan</h3><p>The tool groups the pages, creates suggested filenames and warns about missing or duplicate names before it changes anything.</p></article>
+        <article><span>3</span><h3>Download the results</h3><p>Generate separate PDFs and receive them together in one ZIP archive. The processing happens locally in your browser.</p></article>
+      </div>
+    </section> -->
+
+    <!-- <section class="content-section alt-section" aria-labelledby="use-cases">
+      <span class="eyebrow">COMMON USES</span>
+      <h2 id="use-cases">Split payslips, invoices, certificates and statements</h2>
+      <div class="use-case-grid">
+        <article><h3>Split payslips PDF by employee name</h3><p>Select the employee name or payroll ID and create a separate, correctly named PDF for each person.</p></article>
+        <article><h3>Split invoices by invoice number</h3><p>Automatically detect invoice references and turn one combined invoice PDF into separate client files.</p></article>
+        <article><h3>Rename certificates from recipient text</h3><p>Extract the recipient name from each certificate and download consistently named certificate PDFs.</p></article>
+        <article><h3>Extract pages containing a keyword</h3><p>Start a new document whenever a chosen keyword or regular-expression pattern appears.</p></article>
+      </div>
+    </section> -->
+
+    <!-- <section class="content-section faq-section" aria-labelledby="faq-title">
+      <span class="eyebrow">FREQUENTLY ASKED QUESTIONS</span>
+      <h2 id="faq-title">PDF Split & Rename FAQs</h2>
+      <details><summary>Are my PDF files uploaded to a server?</summary><p>No. The document is read and generated inside your browser. The website downloads software libraries, and optional OCR downloads a language model, but your PDF content is not sent to us.</p></details>
+      <details><summary>Can it split a multi-page document when the name appears only on page one?</summary><p>Yes. Keep “Carry the last value forward” enabled. Blank continuation pages remain grouped with the most recent detected name or number.</p></details>
+      <details><summary>Can it work with scanned PDFs?</summary><p>Yes, enable OCR fallback. OCR is slower than normal text extraction and results depend on scan quality, language and document layout.</p></details>
+      <details><summary>Can I change the filenames before downloading?</summary><p>Yes. Every proposed filename is editable. The tool also warns about duplicate or empty names and can fix them automatically.</p></details>
+      <details><summary>Is the PDF splitter really free?</summary><p>Yes. There is no account, subscription or watermark. Donations are optional and help support maintenance and improvements.</p></details>
+    </section> -->
+
+    <!-- <section class="donation-section">
+      <div>
+        <span class="eyebrow">KEEP FREE SOFTWARE FREE</span>
+        <h2>Did this tool save you time?</h2>
+        <p>PDF Split & Rename is free and open source. A small optional donation helps maintain it and build more useful tools without subscriptions.</p>
+      </div>
+      <a class="button button-donate button-large" href="https://www.paypal.com/donate/?hosted_button_id=YE9H5NCNLWU38" target="_blank" rel="noopener">💛 Donate securely with PayPal</a>
+    </section> -->
+  </main>
+<!-- 
+  <footer class="site-footer">
+    <div><strong>PDF Split & Rename</strong><span>Free browser-based PDF splitter and automatic file renamer.</span></div>
+    <div class="footer-links"><a href="https://github.com/bryanssss/pdf-split-and-rename" target="_blank" rel="noopener">Source code</a><a href="https://www.paypal.com/donate/?hosted_button_id=YE9H5NCNLWU38" target="_blank" rel="noopener">Donate</a></div>
+  </footer> -->
+
+  <!-- <script type="module" src="app.js"></script> -->
+  <!-- ?v= is a cache-buster: bump it whenever app.js changes so browsers do not keep running an old copy. -->
+  <script type="module" src="app.js?v=5"></script>
+</body>
+</html>
